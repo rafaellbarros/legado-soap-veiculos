@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: legado-soap-veiculos
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: admin
+    url: jdbc:postgresql://localhost:54321/veiculosdb
+    password: admin123
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+cxf:
+  path: /soap
+  servlet:
+    load-on-startup: 1
+
+# Logging para debug
+logging:
+  level:
+    org:
+      apache:
+        cxf: INFO
+        services: INFO
