@@ -1,4 +1,3 @@
-// src/main/java/com/legado/config/SoapConfig.java
 package br.com.rafaellbarros.legado.soap.veiculos.config;
 
 
@@ -18,4 +17,6 @@ public class SoapConfig {
         endpoint.publish("/veiculo");
         return endpoint;
     }
+
+
 }

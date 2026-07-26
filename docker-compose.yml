@@ -11,7 +11,7 @@ services:
       # Timezone
       TZ: America/Sao_Paulo
     ports:
-      - "54321:5432"
+      - "5432:5432"
     volumes:
       # Volume para persistência dos dados
       - postgres-data:/var/lib/postgresql/data
@@ -24,6 +24,30 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  legado-soap:
+    build: .
+    container_name: legado-soap-veiculos
+    ports:
+      - "8080:8080"
+    environment:
+      # Configurações do Spring Boot
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/veiculosdb
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      # Java heap size
+      JAVA_OPTS: "-Xmx512m -Xms256m"
+      # Timezone
+      TZ: America/Sao_Paulo
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - veiculos-network
+    # Para garantir que o banco está pronto antes de iniciar
+    restart: on-failure
 
 volumes:
   postgres-data:
